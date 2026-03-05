@@ -16,7 +16,7 @@ from config import (
     MAX_TOKENS_RESPONSE,
 )
 
-from services.faq import search_faq, format_faq_context
+from .faq import search_faq, format_faq_context
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
