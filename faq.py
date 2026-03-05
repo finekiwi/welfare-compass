@@ -46,7 +46,6 @@ def _get_column_mapping(df: pd.DataFrame) -> Dict[str, str]:
 def load_faq_csv(path: Path = FAQ_CSV_PATH) -> List[Document]:
     """질문만 임베딩, 답변은 메타데이터에"""
     if not path.exists():
-        print(f"❌ FAQ CSV 파일이 없습니다: {path}")
         return []
 
     df = pd.read_csv(path, encoding='utf-8-sig')
@@ -73,7 +72,6 @@ def load_faq_csv(path: Path = FAQ_CSV_PATH) -> List[Document]:
 
         docs.append(Document(page_content=content, metadata=metadata))
 
-    print(f"📄 FAQ CSV에서 {len(docs)}개 QA 로드 완료")
     return docs
 
 
@@ -85,13 +83,11 @@ def build_faiss_index(
     """FAISS 벡터 인덱스 생성 및 저장 (CSV 기반)"""
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-    print("🔄 FAQ 임베딩 생성 중...")
     vectorstore = FAISS.from_documents(docs, embeddings)
 
     # 로컬 저장
     save_path.mkdir(parents=True, exist_ok=True)
     vectorstore.save_local(str(save_path))
-    print(f"💾 FAISS 인덱스 저장 완료: {save_path}")
 
     return vectorstore
 
@@ -99,7 +95,6 @@ def build_faiss_index(
 def load_faiss_index(index_path: Path = FAISS_INDEX_PATH) -> Optional[FAISS]:
     """저장된 FAISS 인덱스 로드 (없으면 None)"""
     if not index_path.exists():
-        print(f"❌ 인덱스 폴더가 없습니다: {index_path}")
         return None
 
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -108,7 +103,6 @@ def load_faiss_index(index_path: Path = FAISS_INDEX_PATH) -> Optional[FAISS]:
         embeddings,
         allow_dangerous_deserialization=True,  # 로컬 파일이니까 OK
     )
-    print("✅ FAQ FAISS 인덱스 로드 완료")
     return vectorstore
 
 
@@ -143,7 +137,6 @@ def search_faq(
     if vectorstore is not None:
         results = vectorstore.similarity_search_with_score(query, k=top_k)
 
-        print("\n🔍 [RAG 검색 결과]")
         for doc, score in results:
             sim = round(1 - score, 3)
             metadata = doc.metadata or {}
@@ -152,12 +145,6 @@ def search_faq(
             a = str(metadata.get("answer") or doc.page_content)
             program_name = str(metadata.get("program_name", ""))
             source_file = str(metadata.get("source_file", "unknown"))
-
-            print(f"📄 Source: {source_file}")
-            print(f"🏷 Program: {program_name}")
-            print(f"❓ Q: {q[:80]}...")
-            print(f"💬 A: {a[:100]}...")
-            print(f"📈 Score: {sim}\n")
 
             faq_results.append(
                 {
@@ -172,10 +159,8 @@ def search_faq(
         return faq_results
 
     # 3️⃣ 인덱스 없으면 CSV 키워드 검색 fallback
-    print("\n⚠️ FAISS 인덱스가 없어 CSV 기반 검색으로 fallback 합니다.")
 
     if not FAQ_CSV_PATH.exists():
-        print(f"❌ FAQ CSV 파일도 없습니다: {FAQ_CSV_PATH}")
         return []
 
     df = pd.read_csv(FAQ_CSV_PATH, encoding='utf-8-sig')
@@ -183,8 +168,7 @@ def search_faq(
 
     try:
         col_map = _get_column_mapping(df)
-    except ValueError as e:
-        print(f"❌ {e}")
+    except ValueError:
         return []
 
     # 질문 + 답변 둘 다 검색
@@ -195,15 +179,10 @@ def search_faq(
     )
     filtered = df[mask].head(top_k)
 
-    print("\n🔎 [CSV 기반 검색 결과]")
     for _, row in filtered.iterrows():
         program_name = str(row[col_map["program_name"]]).strip()
         question = str(row[col_map["q"]]).strip()
         answer = str(row[col_map["a"]]).strip()
-
-        print(f"🏷 Program: {program_name}")
-        print(f"❓ Q: {question}")
-        print(f"💬 A: {answer[:100]}...\n")
 
         faq_results.append(
             {

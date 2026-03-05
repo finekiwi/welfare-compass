@@ -61,10 +61,4 @@ def detect_intent(user_message: str, last_intent: str | None = None) -> str:
     if any(k in text for k in ELIGIBILITY_KEYWORDS):
         return "eligibility"
     
-    # 5. 직전이 detail/eligibility/apply면 유지 (대화 흐름 유지)
-    #if last_intent in ["detail", "eligibility", "apply"]:
-     #   if any(k in text for k in RESET_KEYWORDS):
-      #      return "match"
-       # return last_intent
-
     return "match"

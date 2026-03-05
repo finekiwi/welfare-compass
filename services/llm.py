@@ -130,12 +130,7 @@ def extract_user_info(user_message: str, conversation_history: list) -> dict:
         )
         
         result = response.choices[0].message.content.strip()
-        
-        # ✅ 디버깅: LLM 원본 응답 출력
-        print(f"\n=== LLM 원본 응답 ===")
-        print(result)
-        print(f"=====================\n")
-        
+
         # JSON 파싱 전처리 - 마크다운 코드블록 제거
         if "```json" in result:
             result = result.split("```json")[1].split("```")[0]
@@ -144,52 +139,35 @@ def extract_user_info(user_message: str, conversation_history: list) -> dict:
         
         result = result.strip()
         user_info = json.loads(result)
-        
-        # ✅ 디버깅: 파싱 후 user_info
-        print(f"=== 파싱 후 user_info ===")
-        print(json.dumps(user_info, ensure_ascii=False, indent=2))
-        print(f"========================\n")
-        
+
         # 후처리: "~쪽" 패턴 강제 추출
         if 'needs' not in user_info or not user_info['needs']:
             needs = []
             msg_lower = user_message.lower()
-            
-            print(f"=== 후처리 시작 ===")
-            print(f"user_message: {user_message}")
-            print(f"msg_lower: {msg_lower}")
-            
-            # 명시적 요청 패턴 체크
+
+            # 명시적 요청 패턴 체크 ("~쪽", "~관련" 등)
             if ('교육' in msg_lower or '공부' in msg_lower or 'it' in msg_lower) and \
                ('쪽' in msg_lower or '관련' in msg_lower or '추천' in msg_lower or '알아봐' in msg_lower):
                 needs.append('교육')
-                print(f"✅ 교육 추가!")
-            
+
             if ('주거' in msg_lower or '월세' in msg_lower or '전세' in msg_lower) and \
                ('쪽' in msg_lower or '관련' in msg_lower or '추천' in msg_lower or '알아봐' in msg_lower):
                 needs.append('주거')
-                print(f"✅ 주거 추가!")
-            
+
             if ('일자리' in msg_lower or '취업' in msg_lower or '구직' in msg_lower) and \
                ('쪽' in msg_lower or '관련' in msg_lower or '추천' in msg_lower or '알아봐' in msg_lower):
                 needs.append('일자리')
-                print(f"✅ 일자리 추가!")
-            
+
             if ('생활' in msg_lower or '통장' in msg_lower) and \
                ('쪽' in msg_lower or '관련' in msg_lower or '추천' in msg_lower or '알아봐' in msg_lower):
                 needs.append('생활')
-                print(f"✅ 생활 추가!")
-            
+
             if ('창업' in msg_lower or '사업' in msg_lower) and \
                ('쪽' in msg_lower or '관련' in msg_lower or '추천' in msg_lower or '알아봐' in msg_lower):
                 needs.append('창업')
-                print(f"✅ 창업 추가!")
-                
+
             if needs:
                 user_info['needs'] = needs
-                print(f"✅ 최종 needs: {needs}")
-            
-            print(f"===================\n")
         
         return user_info
     
@@ -536,8 +514,8 @@ def generate_response(
             enhanced_query = f"{current_program} {user_message}" if current_program else user_message
             faq_results = search_faq(enhanced_query, top_k=3)
             faq_context = format_faq_context(faq_results)
-        except Exception as e:
-            print(f"FAQ 검색 오류: {e}")
+        except Exception:
+            pass
 
     # 3. 카드 매칭 여부
     has_matches = matched_programs is not None and not matched_programs.empty

@@ -141,11 +141,6 @@ def process_user_input(prompt: str, df: pd.DataFrame):
             # 1. 사용자 정보 추출
             new_info = extract_user_info(prompt, st.session_state.messages)
             
-            # ✅ 디버깅
-            print(f"\n🔍 === 정보 추출 디버깅 ===")
-            print(f"사용자 메시지: {prompt}")
-            print(f"new_info['needs']: {new_info.get('needs')}")
-            
             # 기존 정보와 병합 (덮어쓰기)
             for key, value in new_info.items():
                 if value is not None and value != [] and value != "":
@@ -253,13 +248,6 @@ def process_user_input(prompt: str, df: pd.DataFrame):
                 else:
                     st.session_state["last_matched"] = pd.DataFrame()
                 
-                # ✅ 디버깅
-                print("=== 매칭된 프로그램 ===")
-                if matched is not None and not matched.empty:
-                    for idx, row in matched.head(5).iterrows():
-                        print(f"{idx}. {row['program_name']}")
-                print("=" * 50)
-
                 new_match = True
 
             else:
@@ -282,14 +270,6 @@ def process_user_input(prompt: str, df: pd.DataFrame):
     show_card = bool(new_match and matched is not None and not matched.empty)
     card_programs = matched.copy() if show_card else None
         
-    # 디버깅용
-    #st.session_state.debug_info = {
-     #   "intent": intent,
-      #  "info_count": info_count,
-       # "matched_len": len(matched) if matched is not None and not matched.empty else 0,
-       # "show_card": show_card,
-    #}
-    
     st.session_state.messages.append({
         "role": "assistant", 
         "content": response,
