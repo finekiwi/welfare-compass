@@ -4,7 +4,7 @@ A conversational AI chatbot that matches Seoul residents with relevant welfare p
 
 **Hackathon result**: Top 20 / 181 teams — 2025 SeSAC AI Hackathon (Dec 1–2, 2025)
 
-> Case study: [finekiwi.github.io/welfare-compass.html](https://finekiwi.github.io/welfare-compass.html) *(coming soon)*
+> Case study: [finekiwi.github.io/welfare-compass.html](https://finekiwi.github.io/welfare-compass.html)
 
 ---
 
