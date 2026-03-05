@@ -1,8 +1,8 @@
-streamlit
-openai
-pandas
-langchain-core
-langchain-openai
-langchain-community
-faiss-cpu
-python-dotenv
+streamlit>=1.30.0
+openai>=1.0.0
+pandas>=2.0.0
+langchain-core==0.3.28
+langchain-openai==0.2.14
+langchain-community==0.3.14
+faiss-cpu>=1.7.0
+python-dotenv>=1.0.0
