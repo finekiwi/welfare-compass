@@ -133,4 +133,4 @@ welfare-compass/
 
 ---
 
-This repository contains my initial MVP codebase from the 2025 SeSAC Hackathon (Dec 1–2). During the hackathon, a teammate further contributed ensemble retrieval improvements for the final submission. The project is now being developed into a full web service (Welfare Compass v2) as a separate project with a three-person team — adding a React frontend, Django backend, user authentication, and migrating to LangGraph for orchestration.
+This repository contains my initial MVP codebase from the 2025 SeSAC Hackathon (Dec 1–2). During the hackathon, a teammate further contributed ensemble retrieval improvements for the final submission. The project is now being developed into a full web service (Welfare Compass v2) as a separate project with a three-person team — adding a React frontend, Django backend, user authentication, and migrating to a LangGraph ReAct agent architecture.
