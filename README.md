@@ -75,7 +75,7 @@ OPENAI_API_KEY=sk-...
 **3. Build the FAQ index** (one-time setup)
 
 ```bash
-python faq.py
+python services/faq.py
 ```
 
 This reads `data/faq.csv`, generates embeddings, and saves a FAISS index to `faiss_index/`.
