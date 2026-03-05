@@ -126,7 +126,7 @@ welfare-compass/
 - Seoul-only; other regions return a redirect message
 
 **What I'd do differently with more time:**
-- Replace manual CSV with a pipeline pulling from the [복지로 OpenAPI](https://www.bokjiro.go.kr)
+- Replace manual CSV with a pipeline pulling from the 온통청년 API
 - Add a proper income bracket filter using the full 기준중위소득 table
 - Move matching logic to a more structured scoring framework (currently heuristic)
 - Add evaluation: measure intent classification accuracy and matching precision
