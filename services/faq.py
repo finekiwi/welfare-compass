@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ===== 경로 설정 =====
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 FAQ_CSV_PATH = BASE_DIR / "data" / "faq.csv"   # csv 위치
 FAISS_INDEX_PATH = BASE_DIR / "faiss_index"    # 인덱스 저장 폴더
 

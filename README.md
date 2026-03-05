@@ -94,10 +94,10 @@ streamlit run app.py
 welfare-compass/
 ├── app.py                  # Streamlit app entry point
 ├── config.py               # Constants, keywords, model settings
-├── faq.py                  # FAQ RAG module (FAISS)
 ├── services/
 │   ├── llm.py              # OpenAI calls (extraction + response generation)
-│   └── matching.py         # Welfare program matching algorithm
+│   ├── matching.py         # Welfare program matching algorithm
+│   └── faq.py              # FAQ RAG module (FAISS)
 ├── utils/
 │   ├── data_loader.py      # CSV loading with Streamlit cache
 │   ├── income_calculator.py# 2025 median income calculations
