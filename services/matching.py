@@ -20,8 +20,8 @@ def match_welfare_programs(
         include_category: 특정 카테고리만 포함 (예: '주거', '일자리')
         exclude_programs: 제외할 프로그램 이름 리스트
     """
-    if df.empty:
-        return df
+    if df.empty or 'program_name' not in df.columns:
+        return pd.DataFrame()
 
     matched = df.copy()
 

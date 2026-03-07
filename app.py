@@ -126,7 +126,7 @@ def process_user_input(prompt: str, df: pd.DataFrame):
     # 이미 추천했던 프로그램들 이름 리스트
     prev_matched = st.session_state.get("last_matched", pd.DataFrame())
     already_programs = []
-    if prev_matched is not None and not prev_matched.empty:
+    if prev_matched is not None and not prev_matched.empty and 'program_name' in prev_matched.columns:
         already_programs = (
             prev_matched.head(3)["program_name"]
             .dropna()

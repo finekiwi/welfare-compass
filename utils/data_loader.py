@@ -11,7 +11,12 @@ from config import DATA_PATH
 def load_welfare_data() -> pd.DataFrame:
     """통합된 welfare_data.csv 파일 로드"""
     try:
-        df = pd.read_csv(DATA_PATH, encoding='utf-8')
+        df = pd.read_csv(DATA_PATH, encoding='utf-8-sig')
+        # 컬럼명 공백/특수문자 제거
+        df.columns = df.columns.str.strip()
+        # 빈 이름 컬럼(trailing comma) 제거
+        df = df.loc[:, df.columns != '']
+        df = df.loc[:, ~df.columns.str.startswith('Unnamed')]
 
         # 필수 컬럼 리스트
         required_cols = [
