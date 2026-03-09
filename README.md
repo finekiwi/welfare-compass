@@ -19,7 +19,7 @@ The core challenge was structuring an unstructured conversation into filterable 
 
 ## Architecture
 
-![System Architecture](https://finekiwi.github.io/images/welfare-architecture.png)
+![System Architecture](images/welfare-architecture.svg)
 
 ![Conversation Flow](https://finekiwi.github.io/images/welfare-flow-en.svg)
 
