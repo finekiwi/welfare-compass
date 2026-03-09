@@ -1,9 +1,10 @@
 # Welfare Compass 복지나침반
 
-A conversational AI chatbot that matches Seoul residents with relevant welfare programs through natural language dialogue. Built as a hackathon MVP in 2 days — not production-ready, but functional end-to-end.
+A conversational AI chatbot that matches Seoul residents with relevant welfare programs through natural language dialogue.
 
 **Hackathon result**: Top 20 / 181 teams — 2025 SeSAC AI Hackathon (Dec 1–2, 2025)
 
+> Live demo: [welfare-compass.streamlit.app](https://welfare-compass.streamlit.app/)
 > Case study: [finekiwi.github.io/welfare-compass.html](https://finekiwi.github.io/welfare-compass.html)
 
 ---
@@ -137,4 +138,9 @@ welfare-compass/
 
 ---
 
-This repository contains my initial MVP codebase from the 2025 SeSAC Hackathon (Dec 1–2). During the hackathon, a teammate further contributed ensemble retrieval improvements for the final submission. The project is now being developed into a full web service (Welfare Compass v2) as a separate project with a three-person team — adding a React frontend, Django backend, user authentication, and migrating to a LangGraph ReAct agent architecture.
+## Context
+
+This repository contains the MVP codebase built over 2 days at the 2025 SeSAC AI Hackathon (Dec 1–2). Not production-ready, but functional end-to-end.
+
+- During the hackathon, a teammate contributed ensemble retrieval improvements for the final submission
+- The project is now being developed into a full web service (Welfare Compass v2) as a separate three-person project — adding a React frontend, Django backend, user authentication, and migrating to a LangGraph ReAct agent architecture
